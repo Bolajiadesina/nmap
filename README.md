@@ -27,12 +27,14 @@ Nmap is a powerful network scanning tool used to discover hosts and services on 
      ```
     sudo apt install apache2 -y
      ```
+     ![install apache](images/install-apache.png)
 ## Step-2 : php installation
 - Install php
 
     ```
     sudo apt install php
     ```
+     ![install php](images/install-php.png)
 
 ## Step-3 : nmap installation
 Nmap, short for "Network Mapper," is an open-source network scanning tool used for discovering hosts and services on a computer network. It is widely used by network administrators, security professionals, and penetration testers to assess network security, identify vulnerabilities, and gather information about network devices.
@@ -42,7 +44,7 @@ Nmap, short for "Network Mapper," is an open-source network scanning tool used f
     ```
     sudo apt install nmap
     ```
-
+     ![install nmap](images/install-nmap.png)
 ## Step-4 : Configure Ownership and Permission
 It's important to manage permissions and ownership properly to ensure security. Adjusting permissions as described below is a basic setup for demonstration purposes; in real settings, follow security best practices. Limit permissions to those that requires it.
 
@@ -52,36 +54,37 @@ Before changing ownership, you can run the below code to check the original owne
     ```
     ls -ltr /var/www/html
     ```
-
+     ![change directory](images/checking-dir.png)
 
 - Now change the ownership:
 
     ```
     sudo chown ubuntu /var/www/html
     ```
-
+    ![change ownership](images/change-ownership.png)
 - Ownership changes to Ubuntu
 
 Set permissions on the `/var/www/html` directory for demonstration purposes (not recommended for production)
     ```
     sudo chmod 777 /var/www/html
     ```
+    ![chmod](images/chmod.png)
 ## Step-5 : Create a Cronjob that schedules the execution of the nmap command every 10 minutes
 - Edit the crontab file
 
     ```
     sudo crontab -e
     ```
-
+    ![cha](images/change-ownership.png)
 - Add the following line to the crontab file:
 
     ```
     */10 * * * * nmap <private Ip Address> -oN /var/www/html/nmap.html
     ```
-
+    ![cronfile](images/cron-file.png)
 - Edit it in vim , the private IP-Address is what we intend to scan using nmap.
 
-alt text
+
 
 - Note: Running nmap frequently on your network may generate a significant amount of network traffic and could potentially be disruptive.
 
@@ -93,7 +96,7 @@ Create ```network.php``` file in   ```/var/www/html``` directory.
     
         touch /var/www/html/network.php
         
-
+    ![change ownership](images/create-php.png)
     
 
 - Populate the file with the following PHP script:
@@ -109,6 +112,7 @@ echo "</pre>";
 
 ?>
 ```
+  ![populate php](images/populate-php.png)
 
 - Ensure that the nmap.html file exists in the same directory as this PHP script or provide the correct path if located elsewhere. Also, ensure that the web server has permission to read the nmap.html file and that PHP is properly configured on your server.
 
@@ -116,6 +120,8 @@ echo "</pre>";
 - Access ```<public_ip_address>/network.php``` to view the generated output.
 Note that it might take up to 90 seconds for nmap to populate the result after the command has been executed.
 
+![finalpage](images/finalpage.png)
+    
 
 
 _This output provides information about the latency and open ports on the scanned host (107.22.54.167 AWS EC2 instance) at the time of the scan initiation._
